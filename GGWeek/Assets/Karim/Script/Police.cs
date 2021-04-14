@@ -9,12 +9,15 @@ public class Police : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField]
     private GameObject Gotcha;
+    private Animator anim;
     
+
     void Start()
     {
         Gotcha.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         dirX = -1f;
+        anim = GetComponent<Animator>();  
     }
 
   
@@ -34,11 +37,20 @@ public class Police : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name.Equals("Player"))
+        { 
             Gotcha.SetActive(true);
+        anim.SetBool("GotU", true);
+           
+        }
     }
-    private void OnTriggerExit2D (Collider2D other)
+        private void OnTriggerExit2D (Collider2D other)
     {
         if (other.gameObject.name.Equals("Player"))
+        {
             Gotcha.SetActive(false);
+            anim.SetBool("GotU", false);
+            
+        }
+           
     }
 }
